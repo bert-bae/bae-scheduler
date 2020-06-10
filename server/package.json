@@ -4,17 +4,28 @@
   "description": "The backend service for the Bae scheduler project. AWS Lambdas, DynamoDB, and Express API. Event driven service to react only when required to complete a specific task in a Manager - Worker design model.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:local": "ts-node ./src/app.local.ts",
+    "compile": "ts-node ./src/lambda.ts"
   },
   "author": "Elbert Bae",
   "license": "ISC",
   "dependencies": {
+    "@types/aws-serverless-express": "^3.3.3",
+    "@types/express": "^4.17.6",
     "@types/jest": "^26.0.0",
     "@types/lodash": "^4.14.155",
     "@types/node": "^14.0.13",
+    "aws-serverless-express": "^3.3.8",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "jest": "^26.0.1",
     "ts-jest": "^26.1.0",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.5"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }
