@@ -1,0 +1,17 @@
+{
+  "name": "bae-scheduler",
+  "version": "1.0.0",
+  "description": "Never worry about planning a special something for your special someone again. With the scheduler, you can set reminders, random events, and appreciation tips and advice for your partner using this simple to use calendar planner.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "keywords": [
+    "planner",
+    "scheduler",
+    "nodejs",
+    "typescript"
+  ],
+  "author": "Elbert Bae",
+  "license": "ISC"
+}
