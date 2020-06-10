@@ -1,0 +1,20 @@
+{
+  "name": "bae-scheduler-server",
+  "version": "1.0.0",
+  "description": "The backend service for the Bae scheduler project. AWS Lambdas, DynamoDB, and Express API. Event driven service to react only when required to complete a specific task in a Manager - Worker design model.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Elbert Bae",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jest": "^26.0.0",
+    "@types/lodash": "^4.14.155",
+    "@types/node": "^14.0.13",
+    "jest": "^26.0.1",
+    "ts-jest": "^26.1.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
+  }
+}
