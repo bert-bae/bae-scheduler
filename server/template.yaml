@@ -71,28 +71,34 @@ Resources:
         Enabled: true
 
   # Log group
-  # DynamGetWhitelistDomainLogGroup:
-  #   Type: AWS::Logs::LogGroup
-  #   DependsOn: [DynamoGetWhitelistDomainLambda]
-  #   Properties:
-  #     RetentionInDays: 30
-  #     LogGroupName: !Sub '/aws/lambda/${DynamoGetWhitelistDomainLambda}'
+  SchedulerServerLogGroup:
+    Type: AWS::Logs::LogGroup
+    DependsOn: [SchedulerServer]
+    Properties:
+      RetentionInDays: 30
+      LogGroupName: !Sub '/aws/lambda/${SchedulerServer}'
 
   # Lambda Fn
-  # DynamoSaveWhitelistDomainLambda:
-  #   Type: AWS::Serverless::Function
-  #   Properties:
-  #     Policies:
-  #       - AmazonDynamoDBFullAccess
-  #     Handler: src/lambdas/post/save-whitelist-domain.handler
-  #     Timeout: 10
-  #     Events:
-  #       SaveWhitelistDomain:
-  #         Type: Api
-  #         Properties:
-  #           RestApiId: !Ref ApiGateway
-  #           Path: /whitelist
-  #           Method: post
+  SchedulerServer:
+    Type: AWS::Serverless::Function
+    Properties:
+      Policies:
+        - AmazonDynamoDBFullAccess
+      Handler: src/lambda.handler
+      Timeout: 30
+      Events:
+        ProxyApiRoot:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGateway
+            Path: /
+            Method: ANY
+        ProxyApiGreedy:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGateway
+            Path: /{proxy+}
+            Method: ANY
 
   # Custom API gateway setup API Keys & usage plans
   ApiGateway:
