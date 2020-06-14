@@ -9,6 +9,7 @@ interface UserModel {
   userId: string;
   email: string;
   password: string;
+  verified: boolean;
   firstName?: string;
   lastName?: string;
 }

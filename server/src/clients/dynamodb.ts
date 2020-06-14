@@ -38,9 +38,4 @@ const deleteItem = async (params) => {
   }
 };
 
-module.exports = {
-  get,
-  create,
-  update,
-  deleteItem,
-};
+export { get, create, update, deleteItem };

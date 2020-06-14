@@ -14,5 +14,6 @@
   ],
   "author": "Elbert Bae",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {}
 }

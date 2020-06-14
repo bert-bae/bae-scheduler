@@ -3,7 +3,7 @@ import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import * as awsServerlessExpressMiddleware from 'aws-serverless-express/middleware';
 
-import userRoutes from './routes/user';
+import userRoutes from './routes/user-routes';
 
 const app = express();
 const router = express.Router();
