@@ -30,8 +30,17 @@ const update = async (params) => {
   }
 };
 
+const deleteItem = async (params) => {
+  try {
+    return docClient.delete(params).promise();
+  } catch (err) {
+    throw new Error(`Unable to delete item: ${JSON.stringify(err, null, 2)}`);
+  }
+};
+
 module.exports = {
   get,
   create,
   update,
+  deleteItem,
 };
