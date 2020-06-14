@@ -11,6 +11,12 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(awsServerlessExpressMiddleware.eventContext());
 
+router.get('/hello', (req, res, next) => {
+  res.status(200).json({
+    test: 'hello world',
+  });
+});
+
 app.use('/', router);
 
 export default app;
