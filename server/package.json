@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:local": "ts-node ./src/app.local.ts",
-    "seed:dynamodb-local": "ts-node ./local-development db-init.ts",
+    "start": "ts-node ./src/app.local.ts",
+    "seed:dynamodb-local": "ts-node ./local-development/db-init.ts",
     "compile": "tsc"
   },
   "author": "Elbert Bae",

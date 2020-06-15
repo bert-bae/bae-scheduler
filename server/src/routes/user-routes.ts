@@ -1,14 +1,11 @@
 import * as express from 'express';
+import UserController from '../controller/user-controller';
 
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-  console.log('/user get endpoint');
-});
+router.post('/login', UserController.verifyUser);
 
-router.post('/', (req, res, next) => {
-  console.log('/user post endpoint');
-});
+router.post('/create', UserController.createUser);
 
 router.put('/', (req, res, next) => {
   console.log('/user put endpoint');

@@ -16,7 +16,7 @@ Install dependencies:
 Setup DynamoDB local docker:
 
 1. `cd server/local-development`
-2. `docker-compose up` or `sudo docker-compose up`
+2. `. ./dynamodb-docker-local.sh` or `sudo docker run -p 8000:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -inMemory -sharedDb`
 
 Seed local DynamoDB with tables:
 

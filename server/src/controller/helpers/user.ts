@@ -1,4 +1,5 @@
 import { UserType } from '../../types/data-model';
+import DynamoClient from '../../clients/dynamodb';
 import { tables } from '../../constants/dyanmo-constants';
 import { getISODate } from '../../utils/dates';
 
@@ -21,21 +22,27 @@ export const createUserParams = (
   };
 };
 
-export const getUserParams = (
-  email: string,
-  password: string
-): {
-  TableName: string;
-  Key: {
-    [propNames: string]: any;
-  };
-  [propNames: string]: any;
-} => {
-  return {
+export const getUser = async (email: string): Promise<UserType | null> => {
+  const user = await DynamoClient.query({
     TableName: tables.users,
-    Key: {
-      email,
-      password,
+    KeyConditionExpression: '#email = :email',
+    ExpressionAttributeNames: {
+      '#email': 'email',
     },
-  };
+    ExpressionAttributeValues: {
+      ':email': email,
+    },
+  });
+
+  if (user.Count) {
+    const output = user.Items[0];
+    return {
+      firstName: output.firstName,
+      lastName: output.lastName,
+      email: output.email,
+      verified: output.verified,
+      userId: output.userId,
+      password: output.password,
+    };
+  }
 };
