@@ -3,6 +3,8 @@ import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import * as awsServerlessExpressMiddleware from 'aws-serverless-express/middleware';
 
+import userRoutes from './routes/user-routes';
+
 const app = express();
 const router = express.Router();
 
@@ -11,11 +13,7 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(awsServerlessExpressMiddleware.eventContext());
 
-router.get('/hello', (req, res, next) => {
-  res.status(200).json({
-    test: 'hello world',
-  });
-});
+router.use('/user', userRoutes);
 
 app.use('/', router);
 

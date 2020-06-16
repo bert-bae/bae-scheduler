@@ -1,14 +1,15 @@
 // datetime, updatedAt, createdAt = use ISOString()
 
 interface CreateUpdateDate {
-  updatedAt: string;
-  createdAt: string;
+  updatedAt?: string;
+  createdAt?: string;
 }
 
 interface UserModel {
   userId: string;
   email: string;
   password: string;
+  verified: boolean;
   firstName?: string;
   lastName?: string;
 }
