@@ -27,11 +27,15 @@ Resources:
     Properties:
       TableName: Users
       AttributeDefinitions:
+        - AttributeName: email
+          AttributeType: S
         - AttributeName: userId
           AttributeType: S
       KeySchema:
-        - AttributeName: userId
+        - AttributeName: email
           KeyType: HASH
+        - AttributeName: userId
+          KeyType: RANGE
       ProvisionedThroughput:
         ReadCapacityUnits: 0
         WriteCapacityUnits: 0

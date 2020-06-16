@@ -13,5 +13,7 @@
     "typescript"
   ],
   "author": "Elbert Bae",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {}
 }

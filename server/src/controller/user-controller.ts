@@ -16,7 +16,19 @@ const login = async (req, res, next) => {
 
 const createUser = async (req, res, next) => {
   const { email, password, firstName, lastName } = req.body;
+<<<<<<< HEAD
 
+=======
+  console.log(
+    createUserParams({
+      userId: uuidv4(),
+      email,
+      firstName,
+      lastName,
+      password: await bcrypt.hash(password, saltRounds),
+    })
+  );
+>>>>>>> 19bdf7d852a1aa00f65637c3d9cc76c8ff4c6bfb
   try {
     await DynamoClient.create(
       createUserParams({
