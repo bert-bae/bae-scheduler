@@ -1,7 +1,8 @@
-export const omitKeys = (data: object, omit: Array<string>): object => {
+export const omitKeys = (data: object | void, omit: Array<string>): object => {
+  const dataSet: object = data || {};
   omit.forEach((key) => {
-    delete data[key];
+    delete dataSet[key];
   });
 
-  return data;
+  return dataSet;
 };

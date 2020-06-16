@@ -22,7 +22,7 @@ export const createUserParams = (
   };
 };
 
-export const getUser = async (email: string): Promise<UserType | null> => {
+export const getUser = async (email: string): Promise<UserType | void> => {
   const user = await DynamoClient.query({
     TableName: tables.users,
     KeyConditionExpression: '#email = :email',
@@ -35,14 +35,6 @@ export const getUser = async (email: string): Promise<UserType | null> => {
   });
 
   if (user.Count) {
-    const output = user.Items[0];
-    return {
-      firstName: output.firstName,
-      lastName: output.lastName,
-      email: output.email,
-      verified: output.verified,
-      userId: output.userId,
-      password: output.password,
-    };
+    return <UserType>user.Items[0];
   }
 };
