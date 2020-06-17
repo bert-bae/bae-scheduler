@@ -41,3 +41,22 @@ export const queryAll = async (
     return <PersonType[]>persons.Items;
   }
 };
+
+export const queryOne = async (
+  personId: string
+): Promise<PersonType | void> => {
+  const person = await DynamoClient.query({
+    TableName: tables.users,
+    KeyConditionExpression: '#personId = :personId',
+    ExpressionAttributeNames: {
+      '#personId': 'personId',
+    },
+    ExpressionAttributeValues: {
+      ':personId': personId,
+    },
+  });
+
+  if (person.Count > 0) {
+    return <PersonType>person.Items[0];
+  }
+};

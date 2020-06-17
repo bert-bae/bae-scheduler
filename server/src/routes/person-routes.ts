@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', PersonController.getAll);
 
-router.get('/:personId');
+router.get('/:personId', PersonController.getOne);
 
 router.post('/', PersonController.createNewPerson);
 

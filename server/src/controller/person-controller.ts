@@ -1,4 +1,4 @@
-import { createPerson, queryAll } from './helpers/persons';
+import { createPerson, queryAll, queryOne } from './helpers/persons';
 import { PersonType } from '../types/data-model';
 
 const createNewPerson = async (req, res, next) => {
@@ -42,4 +42,22 @@ const getAll = async (req, res, next) => {
   }
 };
 
-export default { createNewPerson, getAll };
+const getOne = async (req, res, next) => {
+  const { personId } = req.params;
+
+  try {
+    const person = await queryOne(personId);
+
+    res.status(200).send({
+      success: true,
+      data: person,
+    });
+  } catch (err) {
+    res.status(500).send({
+      error:
+        'There was an error fetching your individual query. Please try again later.',
+    });
+  }
+};
+
+export default { createNewPerson, getAll, getOne };
