@@ -7,7 +7,7 @@ router.get('/');
 
 router.get('/:personId');
 
-router.post('/');
+router.post('/', PersonController.createNewPerson);
 
 router.put('/:personId');
 
