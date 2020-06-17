@@ -1,15 +1,8 @@
-import { createPerson } from './helpers/persons';
+import { createPerson, queryAll } from './helpers/persons';
 import { PersonType } from '../types/data-model';
 
 const createNewPerson = async (req, res, next) => {
   const { userId, name, interests, description } = <PersonType>req.body;
-
-  if (!userId) {
-    res.status(403).send({
-      error: 'Login to proceed',
-    });
-    return;
-  }
 
   try {
     const person = await createPerson({
@@ -32,4 +25,21 @@ const createNewPerson = async (req, res, next) => {
   }
 };
 
-export default { createNewPerson };
+const getAll = async (req, res, next) => {
+  const { userId } = req.body;
+
+  try {
+    const list = await queryAll(userId);
+
+    res.status(200).send({
+      success: true,
+      data: list || [],
+    });
+  } catch (err) {
+    res.status(500).send({
+      error: 'There was an error fetching your list. Please try again later.',
+    });
+  }
+};
+
+export default { createNewPerson, getAll };

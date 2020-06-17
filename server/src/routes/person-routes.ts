@@ -3,7 +3,7 @@ import { PersonController } from '../controller';
 
 const router = express.Router();
 
-router.get('/');
+router.get('/', PersonController.getAll);
 
 router.get('/:personId');
 
