@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { createPerson, queryAll, queryOne } from './helpers/persons';
+=======
+import { createPerson, queryAll } from './helpers/persons';
+>>>>>>> Add controller and route to query for all persons under userId
 import { PersonType } from '../types/data-model';
 
 const createNewPerson = async (req, res, next) => {
