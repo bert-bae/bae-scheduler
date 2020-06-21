@@ -9,6 +9,6 @@ router.get('/:personId', PersonController.getOne);
 
 router.post('/', PersonController.createNewPerson);
 
-router.put('/:personId');
+router.put('/:personId', PersonController.updatePerson);
 
 export default router;

@@ -1,4 +1,5 @@
-import { createPerson, queryAll, queryOne } from './helpers/persons';
+import { isEmpty } from 'lodash';
+import { createPerson, queryAll, queryOne, updateOne } from './helpers/persons';
 import { PersonType } from '../types/data-model';
 
 const createNewPerson = async (req, res, next) => {
@@ -36,6 +37,7 @@ const getAll = async (req, res, next) => {
       data: list || [],
     });
   } catch (err) {
+    console.error(err);
     res.status(500).send({
       error: 'There was an error fetching your list. Please try again later.',
     });
@@ -53,6 +55,7 @@ const getOne = async (req, res, next) => {
       data: person,
     });
   } catch (err) {
+    console.error(err);
     res.status(500).send({
       error:
         'There was an error fetching your individual query. Please try again later.',
@@ -60,4 +63,28 @@ const getOne = async (req, res, next) => {
   }
 };
 
-export default { createNewPerson, getAll, getOne };
+const updatePerson = async (req, res, next) => {
+  const { personId } = req.params;
+  const body = req.body;
+
+  if (isEmpty(body)) {
+    res.status(400).status({
+      error: 'No data received to update person entry',
+    });
+  }
+
+  try {
+    await updateOne(personId, body);
+
+    res.status(200).send({
+      success: true,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({
+      error: `There was an error updating a person entry with ID ${personId}`,
+    });
+  }
+};
+
+export default { createNewPerson, getAll, getOne, updatePerson };
