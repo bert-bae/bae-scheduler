@@ -18,7 +18,7 @@ interface PersonModel {
   personId: string;
   userId: string;
   name: string;
-  interests: Array<string>;
+  interests?: Array<string>;
   description?: string;
 }
 

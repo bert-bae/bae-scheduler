@@ -1,10 +1,10 @@
 import * as bcrypt from 'bcrypt';
 import * as passport from 'passport';
-import { v4 as uuidv4 } from 'uuid';
 
 import DynamoClient from '../clients/dynamodb';
-import { createUserParams, getUser } from './helpers/user';
+import { createUserParams, getUser } from './helpers/users';
 import { omitKeys } from '../utils/object-modifier';
+import { UserType } from '../types/data-model';
 
 const saltRounds = 8;
 
@@ -15,24 +15,10 @@ const login = async (req, res, next) => {
 };
 
 const createUser = async (req, res, next) => {
-  const { email, password, firstName, lastName } = req.body;
-<<<<<<< HEAD
-
-=======
-  console.log(
-    createUserParams({
-      userId: uuidv4(),
-      email,
-      firstName,
-      lastName,
-      password: await bcrypt.hash(password, saltRounds),
-    })
-  );
->>>>>>> 19bdf7d852a1aa00f65637c3d9cc76c8ff4c6bfb
+  const { email, password, firstName, lastName } = <UserType>req.body;
   try {
     await DynamoClient.create(
       createUserParams({
-        userId: uuidv4(),
         email,
         firstName,
         lastName,
