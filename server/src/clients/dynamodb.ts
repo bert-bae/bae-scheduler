@@ -51,4 +51,10 @@ const deleteItem = async (params) => {
   }
 };
 
-export default { get, create, update, deleteItem, query };
+export default {
+  get,
+  create,
+  update,
+  deleteItem,
+  query,
+};
