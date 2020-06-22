@@ -1,17 +1,31 @@
+import { isEmpty } from 'lodash';
 import { getISODate } from './dates';
 
-const __updateExpressionBuilder = (signature: string, data: object): string => {
-  let result = '';
+interface HashMap {
+  [propName: string]: any;
+}
+interface UpdateInstructions {
+  UpdateExpression: string;
+  ExpressionAttributeValues: HashMap;
+}
+
+const __updateExpressionBuilder = (
+  signature: string,
+  data: HashMap
+): string => {
+  let result = [];
   for (const key in data) {
-    result += `${key}=${signature}${key}, `;
+    if (result) {
+      result.push(`${key}=${signature}${key}`);
+    }
   }
-  return `set ${result}`;
+  return `set ${result.join(', ')}`;
 };
 
 const __expressionAttributeBuilder = (
   signature: string,
-  data: object
-): object => {
+  data: HashMap
+): HashMap => {
   const result = {};
   for (const key in data) {
     result[`${signature}${key}`] = data[key];
@@ -21,11 +35,12 @@ const __expressionAttributeBuilder = (
 
 export const updateInstructions = (
   signature: string,
-  data: object
-): {
-  UpdateExpression: string;
-  ExpressionAttributeValues: { [propNames: string]: any };
-} => {
+  data: HashMap
+): UpdateInstructions => {
+  if (isEmpty(data) || !signature) {
+    return null;
+  }
+
   const updateData = {
     ...data,
     updatedAt: getISODate(),
@@ -38,10 +53,3 @@ export const updateInstructions = (
     ),
   };
 };
-
-console.log(
-  updateInstructions(':', {
-    name: 'Elbert',
-    interests: ['snowboard', 'climbing', 'beer'],
-  })
-);
