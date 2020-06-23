@@ -2,7 +2,7 @@ import * as bcrypt from 'bcrypt';
 import * as passport from 'passport';
 
 import DynamoClient from '../clients/dynamodb';
-import { createUserParams, getUser } from './helpers/users';
+import { createUserParams, getUserByEmail } from './helpers/users';
 import { omitKeys } from '../utils/object-modifier';
 import { UserType } from '../types/data-model';
 
@@ -42,7 +42,7 @@ const authenticateUser = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
-    const user = await getUser(email);
+    const user = await getUserByEmail(email);
     const verified = user && (await bcrypt.compare(password, user.password));
 
     if (!verified) {
