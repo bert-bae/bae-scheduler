@@ -10,6 +10,20 @@ export const omitKeys = (
   return dataSet;
 };
 
+export const pickKeys = (data: object | void, pick: Array<string>): object => {
+  if (!data) {
+    return {};
+  }
+
+  const dataSet: object = {};
+  pick.forEach((key) => {
+    dataSet[key] = data[key];
+  });
+
+  console.log(dataSet);
+  return dataSet;
+};
+
 export const deepCopy = (data: object): object => {
   return JSON.parse(JSON.stringify(data));
 };

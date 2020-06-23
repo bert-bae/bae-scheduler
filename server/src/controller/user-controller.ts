@@ -1,10 +1,13 @@
 import * as bcrypt from 'bcrypt';
-import * as passport from 'passport';
+import * as jwt from 'jsonwebtoken';
+import * as dotenv from 'dotenv';
 
 import DynamoClient from '../clients/dynamodb';
 import { createUserParams, getUserByEmail } from './helpers/users';
-import { omitKeys } from '../utils/object-modifier';
+import { omitKeys, pickKeys } from '../utils/object-modifier';
 import { UserType } from '../types/data-model';
+
+dotenv.config();
 
 const saltRounds = 8;
 
@@ -28,11 +31,11 @@ const createUser = async (req, res, next) => {
 
     console.log(`User created with email: ${email}`);
 
-    res.status(200).send({
+    res.status(200).json({
       success: true,
     });
   } catch (err) {
-    res.status(500).send({
+    res.status(500).json({
       error: err,
     });
   }
@@ -46,19 +49,24 @@ const authenticateUser = async (req, res, next) => {
     const verified = user && (await bcrypt.compare(password, user.password));
 
     if (!verified) {
-      res.status(403).send({
+      res.status(403).json({
         error: 'Password is incorrect',
       });
       return;
     }
 
-    res.status(200).send({
+    res.status(200).json({
       success: true,
-      data: omitKeys(user, ['password']),
+      data: {
+        token: jwt.sign(
+          pickKeys(user, ['userId', 'email']),
+          process.env.JWT_SECRET
+        ),
+      },
     });
   } catch (err) {
     console.error(`Encountered an error fetching user data: ${err}`);
-    res.status(500).send({
+    res.status(500).json({
       error: err,
     });
   }

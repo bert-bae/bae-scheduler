@@ -1,6 +1,7 @@
 import * as passport from 'passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
-import { getUserById } from './helpers/users';
+import { getUserByEmail } from './helpers/users';
+import { omitKeys } from '../utils/object-modifier';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -9,22 +10,16 @@ passport.use(
   new Strategy(
     {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_SECRET || 'local-development-jwt-secret',
+      secretOrKey: process.env.JWT_SECRET,
     },
-    async function (payload, done) {
+    async (payload, done) => {
       try {
-        const user = await getUserById(payload.userId);
+        const user = await getUserByEmail(payload.email);
         if (!user) {
           console.warn('User could not be found');
           return done(null, false);
         }
-        return done(null, {
-          userId: user.userId,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          verified: user.verified,
-        });
+        return done(null, omitKeys(user, ['password']));
       } catch (err) {
         console.error(`Encountered an error authorizing user: ${err}`);
         return done(err, false);
@@ -33,4 +28,6 @@ passport.use(
   )
 );
 
-export default passport;
+export default {
+  passport,
+};

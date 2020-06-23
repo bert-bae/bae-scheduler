@@ -1,14 +1,30 @@
 import * as express from 'express';
-import { PersonController } from '../controller';
+import { PersonController, AuthController } from '../controller';
 
 const router = express.Router();
 
-router.get('/', PersonController.getAll);
+router.get(
+  '/',
+  AuthController.passport.authenticate('jwt', { session: false }),
+  PersonController.getAll
+);
 
-router.get('/:personId', PersonController.getOne);
+router.get(
+  '/:personId',
+  AuthController.passport.authenticate('jwt', { session: false }),
+  PersonController.getOne
+);
 
-router.post('/', PersonController.createNewPerson);
+router.post(
+  '/',
+  AuthController.passport.authenticate('jwt', { session: false }),
+  PersonController.createNewPerson
+);
 
-router.put('/:personId', PersonController.updatePerson);
+router.put(
+  '/:personId',
+  AuthController.passport.authenticate('jwt', { session: false }),
+  PersonController.updatePerson
+);
 
 export default router;

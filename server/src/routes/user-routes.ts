@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post('/login', UserController.authenticateUser);
 
-router.post('/create', UserController.createUser);
+router.post('/', UserController.createUser);
 
 router.put('/', (req, res, next) => {
   console.log('/user put endpoint');

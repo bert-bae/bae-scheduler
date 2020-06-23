@@ -42,20 +42,3 @@ export const getUserByEmail = async (
     return <UserType>user.Items[0];
   }
 };
-
-export const getUserById = async (userId: string): Promise<UserType | void> => {
-  const user = await DynamoClient.query({
-    TableName: tables.users,
-    KeyConditionExpression: '#userId = :userId',
-    ExpressionAttributeNames: {
-      '#userId': 'userId',
-    },
-    ExpressionAttributeValues: {
-      ':userId': userId,
-    },
-  });
-
-  if (user.Count) {
-    return <UserType>user.Items[0];
-  }
-};
