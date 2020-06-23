@@ -16,7 +16,7 @@ passport.use(
       try {
         const user = await getUserByEmail(payload.email);
         if (!user) {
-          console.warn('User could not be found');
+          console.warn('Authentication failed');
           return done(null, false);
         }
         return done(null, omitKeys(user, ['password']));
@@ -28,6 +28,18 @@ passport.use(
   )
 );
 
+const isAuthenticated = (req, res, next) => {
+  const user = req.user;
+
+  if (!user) {
+    res.status(401).json({
+      error: 'Authorization failed. Ensure you are logged in.',
+    });
+  } else {
+    next();
+  }
+};
 export default {
   passport,
+  isAuthenticated,
 };

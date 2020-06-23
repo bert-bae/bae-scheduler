@@ -29,10 +29,7 @@ export const queryAll = async (
 ): Promise<PersonType[] | void> => {
   const persons = await DynamoClient.query({
     TableName: tables.persons,
-    KeyConditionExpression: '#userId = :userId',
-    ExpressionAttributeNames: {
-      '#userId': 'userId',
-    },
+    KeyConditionExpression: 'userId = :userId',
     ExpressionAttributeValues: {
       ':userId': userId,
     },

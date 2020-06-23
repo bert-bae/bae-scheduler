@@ -15,7 +15,12 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.use(awsServerlessExpressMiddleware.eventContext());
 
 router.use('/user', UserRoutes);
-router.use('/person', PersonRoutes);
+router.use(
+  '/person',
+  AuthController.passport.authenticate('jwt', { session: false }),
+  AuthController.isAuthenticated,
+  PersonRoutes
+);
 
 app.use('/', router);
 
