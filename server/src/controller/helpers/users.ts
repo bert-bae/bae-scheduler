@@ -24,7 +24,9 @@ export const createUserParams = (
   };
 };
 
-export const getUser = async (email: string): Promise<UserType | void> => {
+export const getUserByEmail = async (
+  email: string
+): Promise<UserType | void> => {
   const user = await DynamoClient.query({
     TableName: tables.users,
     KeyConditionExpression: '#email = :email',

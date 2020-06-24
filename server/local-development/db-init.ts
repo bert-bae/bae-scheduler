@@ -47,21 +47,21 @@ const tables = [
     },
     AttributeDefinitions: [
       {
-        AttributeName: 'personId',
+        AttributeName: 'userId',
         AttributeType: 'S',
       },
       {
-        AttributeName: 'userId',
+        AttributeName: 'personId',
         AttributeType: 'S',
       },
     ],
     KeySchema: [
       {
-        AttributeName: 'personId',
+        AttributeName: 'userId',
         KeyType: 'HASH',
       },
       {
-        AttributeName: 'userId',
+        AttributeName: 'personId',
         KeyType: 'RANGE',
       },
     ],
@@ -74,21 +74,21 @@ const tables = [
     },
     AttributeDefinitions: [
       {
-        AttributeName: 'eventId',
+        AttributeName: 'personId',
         AttributeType: 'S',
       },
       {
-        AttributeName: 'personId',
+        AttributeName: 'eventId',
         AttributeType: 'S',
       },
     ],
     KeySchema: [
       {
-        AttributeName: 'eventId',
+        AttributeName: 'personId',
         KeyType: 'HASH',
       },
       {
-        AttributeName: 'personId',
+        AttributeName: 'eventId',
         KeyType: 'RANGE',
       },
     ],

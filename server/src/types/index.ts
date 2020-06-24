@@ -6,3 +6,4 @@ declare module 'bcrypt';
 declare module 'passport';
 declare module 'fs';
 declare module 'aws-sdk';
+declare module 'jsonwebtoken';

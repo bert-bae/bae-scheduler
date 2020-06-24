@@ -29,10 +29,7 @@ export const queryAll = async (
 ): Promise<PersonType[] | void> => {
   const persons = await DynamoClient.query({
     TableName: tables.persons,
-    KeyConditionExpression: '#userId = :userId',
-    ExpressionAttributeNames: {
-      '#userId': 'userId',
-    },
+    KeyConditionExpression: 'userId = :userId',
     ExpressionAttributeValues: {
       ':userId': userId,
     },
@@ -41,35 +38,38 @@ export const queryAll = async (
   if (persons.Count > 0) {
     return <PersonType[]>persons.Items;
   }
+  throw new Error('Persons could not be found under your account');
 };
 
 export const queryOne = async (
-  personId: string
+  personId: string,
+  userId: string
 ): Promise<PersonType | void> => {
   const person = await DynamoClient.query({
     TableName: tables.persons,
-    KeyConditionExpression: '#personId = :personId',
-    ExpressionAttributeNames: {
-      '#personId': 'personId',
-    },
+    KeyConditionExpression: 'userId = :userId AND personId = :personId',
     ExpressionAttributeValues: {
       ':personId': personId,
+      ':userId': userId,
     },
   });
 
   if (person.Count > 0) {
     return <PersonType>person.Items[0];
   }
+  throw new Error('Person could not be found under your account');
 };
 
 export const updateOne = async (
   personId: string,
+  userId,
   data: Omit<PersonType, 'personId' | 'userId' | 'createdAt'>
 ): Promise<void> => {
   await DynamoClient.update({
     TableName: tables.persons,
     Key: {
       personId,
+      userId,
     },
     ...updateInstructions(':', data),
   });
