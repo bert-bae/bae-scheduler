@@ -47,9 +47,10 @@ const getAll = async (req, res, next) => {
 
 const getOne = async (req, res, next) => {
   const { personId } = req.params;
+  const { userId } = req.user;
 
   try {
-    const person = await queryOne(personId);
+    const person = await queryOne(personId, userId);
 
     res.status(200).json({
       success: true,
@@ -66,6 +67,7 @@ const getOne = async (req, res, next) => {
 
 const updatePerson = async (req, res, next) => {
   const { personId } = req.params;
+  const { userId } = req.user;
   const body = req.body;
 
   if (isEmpty(body)) {
@@ -75,7 +77,7 @@ const updatePerson = async (req, res, next) => {
   }
 
   try {
-    await updateOne(personId, body);
+    await updateOne(personId, userId, body);
 
     res.status(200).json({
       success: true,
