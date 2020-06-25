@@ -20,7 +20,6 @@ export const pickKeys = (data: object | void, pick: Array<string>): object => {
     dataSet[key] = data[key];
   });
 
-  console.log(dataSet);
   return dataSet;
 };
 
