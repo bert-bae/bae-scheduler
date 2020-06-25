@@ -45,7 +45,7 @@ export const queryOne = async (
   personId: string,
   userId: string
 ): Promise<PersonType | void> => {
-  const person = await DynamoClient.query({
+  const person = await DynamoClient.get({
     TableName: tables.persons,
     KeyConditionExpression: 'userId = :userId AND personId = :personId',
     ExpressionAttributeValues: {
@@ -54,10 +54,7 @@ export const queryOne = async (
     },
   });
 
-  if (person.Count > 0) {
-    return <PersonType>person.Items[0];
-  }
-  throw new Error('Person could not be found under your account');
+  return <PersonType>person.Item;
 };
 
 export const updateOne = async (
