@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest test",
-    "start": "ts-node ./src/app.local.ts",
+    "start": "ts-node-dev ./src/app.local.ts",
     "seed:dynamodb-local": "ts-node ./local-development/db-init.ts",
     "compile": "tsc"
   },
@@ -39,6 +39,7 @@
     "jest": "^26.0.1",
     "ts-jest": "^26.1.0",
     "ts-node": "^8.10.2",
+    "ts-node-dev": "^1.0.0-pre.50",
     "typescript": "^3.9.5"
   }
 }
