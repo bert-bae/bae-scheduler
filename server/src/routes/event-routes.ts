@@ -3,12 +3,12 @@ import { EventController } from '../controller';
 
 const router = express.Router();
 
-router.get('/');
+router.get('/', EventController.getEventsByPerson);
 
-router.get('/:eventId');
+router.get('/:eventId', EventController.getEventRecord);
 
-router.post('/');
+router.post('/', EventController.createEventRecord);
 
-router.put('/:eventId');
+router.put('/:eventId', EventController.updateEventRecord);
 
 export default router;

@@ -21,7 +21,7 @@ export const queryEvent = async (
   return <EventType>event.Item;
 };
 
-export const queryAllByPerson = async (
+export const queryEventsByPerson = async (
   personId: string
 ): Promise<EventType[]> => {
   const events = await DynamoClient.query({
@@ -35,12 +35,13 @@ export const queryAllByPerson = async (
   if (events.Count > 0) {
     return <EventType[]>events.Items;
   }
+
   throw new Error(
     `Events could not be found under the specified person with ID "${personId}"`
   );
 };
 
-export const createEvent = async (
+export const create = async (
   data: Omit<EventType, 'eventId' | 'createdAt' | 'updatedAt'>
 ): Promise<EventType> => {
   const currentDate = getISODate();
@@ -59,10 +60,10 @@ export const createEvent = async (
   return params.Item;
 };
 
-export const updateEvent = async (
+export const update = async (
   personId: string,
   eventId: string,
-  data: Omit<EventType, 'eventId' | 'personId' | 'userId' | 'createdAt'>
+  data: object
 ): Promise<void> => {
   await DynamoClient.update({
     TableName: tables.events,

@@ -4,7 +4,7 @@ import * as bodyParser from 'body-parser';
 import * as awsServerlessExpressMiddleware from 'aws-serverless-express/middleware';
 
 import { AuthController } from './controller';
-import { UserRoutes, PersonRoutes } from './routes';
+import { UserRoutes, PersonRoutes, EventRoutes } from './routes';
 
 const app = express();
 const router = express.Router();
@@ -20,6 +20,12 @@ router.use(
   AuthController.passport.authenticate('jwt', { session: false }),
   AuthController.isAuthenticated,
   PersonRoutes
+);
+router.use(
+  '/person/:personId',
+  AuthController.passport.authenticate('jwt', { session: false }),
+  AuthController.isAuthenticated,
+  EventRoutes
 );
 
 app.use('/', router);
