@@ -1,5 +1,5 @@
-import * as AWS from 'aws-sdk';
-import * as dotenv from 'dotenv';
+import AWS from 'aws-sdk';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -9,7 +9,7 @@ AWS.config.update({
 
 const docClient = new AWS.DynamoDB.DocumentClient({
   endpoint:
-    process.env.ENVIRONMENT === 'local'
+    process.env.NODE_ENVIRONMENT === 'local'
       ? 'http://localhost:8000'
       : `https://dynamodb.${process.env.AWS_REGION}.amazonaws.com`,
 });

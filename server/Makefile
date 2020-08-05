@@ -21,4 +21,4 @@ build: .$(BUILD_PATH)
 deploy: build
 	cd $(BUILD_PATH) && sam deploy --stack-name $(STACK_NAME) --s3-bucket $(S3_BUCKET) --s3-prefix server --parameter-overrides \
 		ApiKey=$(API_KEY) \
-		Environment=prod
+		NodeEnvironment=prod

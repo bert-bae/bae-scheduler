@@ -15,7 +15,6 @@ const createNewPerson = async (req, res, next) => {
     });
 
     res.status(200).json({
-      success: true,
       data: person,
     });
   } catch (err) {
@@ -34,7 +33,6 @@ const getAll = async (req, res, next) => {
     const list = await queryAll(userId);
 
     res.status(200).json({
-      success: true,
       data: list || [],
     });
   } catch (err) {
@@ -53,7 +51,6 @@ const getOne = async (req, res, next) => {
     const person = await queryOne(personId, userId);
 
     res.status(200).json({
-      success: true,
       data: person,
     });
   } catch (err) {
@@ -79,9 +76,7 @@ const updatePerson = async (req, res, next) => {
   try {
     await updateOne(personId, userId, body);
 
-    res.status(200).json({
-      success: true,
-    });
+    res.status(200).json({});
   } catch (err) {
     console.error(err);
     res.status(500).json({

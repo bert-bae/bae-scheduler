@@ -1,7 +1,7 @@
-import * as express from 'express';
-import * as cors from 'cors';
-import * as bodyParser from 'body-parser';
-import * as awsServerlessExpressMiddleware from 'aws-serverless-express/middleware';
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import awsServerlessExpressMiddleware from 'aws-serverless-express/middleware';
 
 import { AuthController } from './controller';
 import { UserRoutes, PersonRoutes } from './routes';

@@ -1,10 +1,10 @@
-import * as bcrypt from 'bcrypt';
-import * as jwt from 'jsonwebtoken';
-import * as dotenv from 'dotenv';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
 import DynamoClient from '../clients/dynamodb';
 import { createUserParams, getUserByEmail } from './helpers/users';
-import { omitKeys, pickKeys } from '../utils/object-modifier';
+import { pickKeys } from '../utils/object-modifier';
 import { UserType } from '../types/data-model';
 
 dotenv.config();
@@ -31,9 +31,7 @@ const createUser = async (req, res, next) => {
 
     console.log(`User created with email: ${email}`);
 
-    res.status(200).json({
-      success: true,
-    });
+    res.status(200).json({});
   } catch (err) {
     res.status(500).json({
       error: err,
@@ -56,13 +54,10 @@ const authenticateUser = async (req, res, next) => {
     }
 
     res.status(200).json({
-      success: true,
-      data: {
-        token: jwt.sign(
-          pickKeys(user, ['userId', 'email']),
-          process.env.JWT_SECRET
-        ),
-      },
+      token: jwt.sign(
+        pickKeys(user, ['userId', 'email']),
+        process.env.JWT_SECRET
+      ),
     });
   } catch (err) {
     console.error(`Encountered an error fetching user data: ${err}`);

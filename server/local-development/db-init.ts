@@ -1,6 +1,5 @@
-import * as AWS from 'aws-sdk';
-import * as fs from 'fs';
-import * as dotenv from 'dotenv';
+import AWS from 'aws-sdk';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
