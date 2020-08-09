@@ -1,4 +1,9 @@
-// datetime, updatedAt, createdAt = use ISOString()
+export enum EventCategory {
+  Activity = 'Activity',
+  Appreciation = 'Appreciation',
+  Experience = 'Experience',
+  Gift = 'Gift',
+}
 
 interface CreateUpdateDate {
   updatedAt?: string;
@@ -32,7 +37,7 @@ interface EventModel {
   personId: string;
   title: string;
   datetime: string;
-  category?: string;
+  category?: EventCategory;
   description?: string;
   reminders?: Array<ReminderModel> | null;
 }
