@@ -1,0 +1,31 @@
+.bae-event-container {
+  width: 80%;
+  height: 85vh;
+  margin: 0 auto 50px auto;
+  background-color: #fff;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(auto, 1fr));
+  grid-gap: 15px;
+  &[data-toggle='true'] {
+    display: block;
+  }
+  &[data-toggle='false'] {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .bae-event-container {
+    width: 90%;
+    grid-template-columns: repeat(2 minmax(auto, 1fr));
+  }
+}
+
+@media only screen and (max-width: 568px) {
+  .bae-event-container {
+    width: 90%;
+    margin-bottom: 25px;
+    grid-template-columns: 1;
+  }
+}

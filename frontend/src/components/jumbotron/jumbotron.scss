@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   flex-flow: column nowrap;
-
+  box-sizing: border-box;
   .jumbotron-content {
     text-align: center;
     padding: 25px;

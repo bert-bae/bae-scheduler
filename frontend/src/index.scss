@@ -10,6 +10,8 @@ body {
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 code {
