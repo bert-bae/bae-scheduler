@@ -17,6 +17,13 @@
   }
 }
 
+@media only screen and (max-width: 992px) {
+  .bae-event-container {
+    width: 90%;
+    grid-template-columns: repeat(2, minmax(auto, 1fr));
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .bae-event-container {
     width: 90%;

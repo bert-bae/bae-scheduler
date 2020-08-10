@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import EventBox from '../event-box';
 
 import { IGeneratedEvent } from '../../types/events';
@@ -10,12 +10,9 @@ const EventsContainer = (props: {
 }) => {
   return (
     <div className="bae-event-container" data-toggle={props.toggle}>
-      <EventBox event={props.events[0]}></EventBox>
-      <EventBox event={props.events[1]}></EventBox>
-      <EventBox event={props.events[2]}></EventBox>
-      <EventBox event={props.events[3]}></EventBox>
-      <EventBox event={props.events[4]}></EventBox>
-      <EventBox event={props.events[5]}></EventBox>
+      {props.events.map((event, i) => {
+        return <EventBox event={event} order={i} key={i}></EventBox>;
+      })}
     </div>
   );
 };
