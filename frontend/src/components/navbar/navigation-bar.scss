@@ -1,0 +1,26 @@
+.bae-navbar {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(auto, 1fr));
+  grid-template-rows: 1;
+  position: fixed;
+  .navbar-content {
+    padding: 0 15px;
+  }
+
+  .logo-container {
+    position: relative;
+    width: fit-content;
+    .bae-logo {
+      height: 70px;
+    }
+    .logo-sub {
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      margin: 0;
+    }
+  }
+}
