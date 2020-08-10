@@ -37,18 +37,13 @@ const dummyEventData = [
 ];
 
 function App() {
-  const [toggleEvents, setToggleEvents] = useState(false);
   const eventsRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="App">
       <NavigationBar />
-      <Jumbotron setToggleEvents={setToggleEvents} eventsRef={eventsRef} />
-      <EventsContainer
-        setRef={eventsRef}
-        events={dummyEventData}
-        toggle={toggleEvents}
-      />
+      <Jumbotron eventsRef={eventsRef} />
+      <EventsContainer setRef={eventsRef} events={dummyEventData} />
     </div>
   );
 }

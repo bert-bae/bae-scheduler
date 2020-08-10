@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import StyledButton from '../buttons';
 import './jumbotron.scss';
 
 const SCROLL_DELAY_TIME = 100;
 
-const Jumbotron = (props: {
-  setToggleEvents: Function;
-  eventsRef: React.RefObject<HTMLDivElement>;
-}) => {
+const setButtonText = (isClicked: boolean): string => {
+  return isClicked ? 'Regenerate Events' : 'Generate Events';
+};
+
+const Jumbotron = (props: { eventsRef: React.RefObject<HTMLDivElement> }) => {
+  const [isClicked, setIsClicked] = useState(false);
+
   const handleClick = () => {
-    props.setToggleEvents((t: boolean) => !t);
+    props.eventsRef.current?.setAttribute('data-show', 'true');
+
     setTimeout(() => {
       props.eventsRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, SCROLL_DELAY_TIME);
+    setIsClicked(true);
   };
 
   return (
@@ -23,7 +28,7 @@ const Jumbotron = (props: {
         <img className="calendar-asset" src="/images/bae-calendar.png" />
       </div>
       <StyledButton buttonStyle="primary" handleClick={handleClick}>
-        Generate Events
+        {setButtonText(isClicked)}
       </StyledButton>
     </div>
   );

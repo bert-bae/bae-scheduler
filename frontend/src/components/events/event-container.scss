@@ -9,10 +9,10 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(auto, 1fr));
   grid-gap: 15px;
-  &[data-toggle='true'] {
+  &[data-show='true'] {
     display: grid;
   }
-  &[data-toggle='false'] {
+  &[data-show='false'] {
     display: none;
   }
 }

@@ -3,6 +3,7 @@ import dateUtils from '../../utils/dates';
 import { IGeneratedEvent } from '../../types/events';
 import './event-box.scss';
 
+const INITIAL_TRANSITION_DELAY = 1250;
 const INCREMENTAL_TRANSITION_DELAY = 250;
 
 const EventBox = (props: { event: IGeneratedEvent; order: number }) => {
@@ -10,7 +11,8 @@ const EventBox = (props: { event: IGeneratedEvent; order: number }) => {
   const eventRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const transitionTime = props.order * INCREMENTAL_TRANSITION_DELAY;
+    const transitionTime =
+      props.order * INCREMENTAL_TRANSITION_DELAY + INITIAL_TRANSITION_DELAY;
 
     setTimeout(() => {
       eventRef.current?.setAttribute('data-visible', 'true');

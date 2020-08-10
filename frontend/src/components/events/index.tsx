@@ -6,14 +6,13 @@ import './event-container.scss';
 
 const EventsContainer = (props: {
   events: Array<IGeneratedEvent>;
-  toggle: boolean;
   setRef: React.RefObject<HTMLDivElement>;
 }) => {
   return (
     <div
       className="bae-event-container"
       id="bae-event-target"
-      data-toggle={props.toggle}
+      data-show="false"
       ref={props.setRef}
     >
       {props.events.map((event, i) => {
