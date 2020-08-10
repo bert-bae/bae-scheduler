@@ -1,0 +1,20 @@
+.custom-button {
+  outline: none;
+  border: none;
+  font-weight: bold;
+  color: #fff;
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.3);
+  border-radius: 25px;
+  height: 35px;
+  width: 200px;
+  transition: all 0.1s linear;
+  cursor: pointer;
+
+  &[data-type='primary'] {
+    background-color: #ff7a96;
+    &:hover {
+      background-color: #ff8a7a;
+      transform: scale(1.01);
+    }
+  }
+}
