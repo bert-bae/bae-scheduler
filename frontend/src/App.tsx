@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import NavigationBar from './components/navbar';
 import Jumbotron from './components/jumbotron';
 import EventsContainer from './components/events';
@@ -37,13 +37,18 @@ const dummyEventData = [
 ];
 
 function App() {
-  const [toggleEvents, setToggleEvents] = useState(true);
+  const [toggleEvents, setToggleEvents] = useState(false);
+  const eventsRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="App">
       <NavigationBar />
-      <Jumbotron setToggleEvents={setToggleEvents} />
-      <EventsContainer events={dummyEventData} toggle={toggleEvents} />
+      <Jumbotron setToggleEvents={setToggleEvents} eventsRef={eventsRef} />
+      <EventsContainer
+        setRef={eventsRef}
+        events={dummyEventData}
+        toggle={toggleEvents}
+      />
     </div>
   );
 }

@@ -2,10 +2,19 @@ import React from 'react';
 import StyledButton from '../buttons';
 import './jumbotron.scss';
 
-function Jumbotron(props: { setToggleEvents: Function }) {
+const SCROLL_DELAY_TIME = 100;
+
+const Jumbotron = (props: {
+  setToggleEvents: Function;
+  eventsRef: React.RefObject<HTMLDivElement>;
+}) => {
   const handleClick = () => {
     props.setToggleEvents((t: boolean) => !t);
+    setTimeout(() => {
+      props.eventsRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, SCROLL_DELAY_TIME);
   };
+
   return (
     <div className="bae-jumbotron">
       <div className="jumbotron-content">
@@ -18,6 +27,6 @@ function Jumbotron(props: { setToggleEvents: Function }) {
       </StyledButton>
     </div>
   );
-}
+};
 
 export default Jumbotron;

@@ -3,16 +3,18 @@ import dateUtils from '../../utils/dates';
 import { IGeneratedEvent } from '../../types/events';
 import './event-box.scss';
 
-const BASE_TRANSITION_TIME = 250;
+const INCREMENTAL_TRANSITION_DELAY = 250;
 
 const EventBox = (props: { event: IGeneratedEvent; order: number }) => {
   const event = props.event;
   const eventRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const transitionTime = props.order * INCREMENTAL_TRANSITION_DELAY;
+
     setTimeout(() => {
       eventRef.current?.setAttribute('data-visible', 'true');
-    }, BASE_TRANSITION_TIME * props.order);
+    }, transitionTime);
   });
 
   return (
