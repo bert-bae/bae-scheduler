@@ -1,7 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import NavigationBar from './components/navbar';
 import Jumbotron from './components/jumbotron';
 import EventsContainer from './components/events';
+
+import { transformArrayToMap } from './utils/data-normalizer';
+import { IMapGeneratedEvent } from './types/events';
 
 const dummyEventData = [
   {
@@ -36,16 +39,31 @@ const dummyEventData = [
   },
 ];
 
-function App() {
+const App = () => {
+  const [showEvents, setShowEvents] = useState(false);
+  const [events, setEvents] = useState<IMapGeneratedEvent>({});
   const eventsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setEvents(transformArrayToMap(dummyEventData));
+  }, []);
 
   return (
     <div className="App">
       <NavigationBar />
-      <Jumbotron eventsRef={eventsRef} />
-      <EventsContainer setRef={eventsRef} events={dummyEventData} />
+      <Jumbotron
+        eventsRef={eventsRef}
+        showEvents={showEvents}
+        setEvents={setEvents}
+        setShowEvents={setShowEvents}
+      />
+      <EventsContainer
+        setRef={eventsRef}
+        events={events}
+        showEvents={showEvents}
+      />
     </div>
   );
-}
+};
 
 export default App;

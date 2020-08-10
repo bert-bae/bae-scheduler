@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
 import EventBox from '../event-box';
 
-import { IGeneratedEvent } from '../../types/events';
+import { IMapGeneratedEvent } from '../../types/events';
 import './event-container.scss';
 
 const EventsContainer = (props: {
-  events: Array<IGeneratedEvent>;
+  events: IMapGeneratedEvent;
+  showEvents: boolean;
   setRef: React.RefObject<HTMLDivElement>;
 }) => {
+  const eventMap = Object.keys(props.events);
+
   return (
     <div
       className="bae-event-container"
@@ -15,8 +18,15 @@ const EventsContainer = (props: {
       data-show="false"
       ref={props.setRef}
     >
-      {props.events.map((event, i) => {
-        return <EventBox event={event} order={i} key={i}></EventBox>;
+      {eventMap.map((key, i) => {
+        return (
+          <EventBox
+            event={props.events[key]}
+            showEvents={props.showEvents}
+            order={i}
+            key={i}
+          ></EventBox>
+        );
       })}
     </div>
   );
