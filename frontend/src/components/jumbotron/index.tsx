@@ -27,8 +27,8 @@ const Jumbotron = (props: {
   return (
     <div className="bae-jumbotron">
       <div className="jumbotron-content">
-        <h1>Simplify Appreciating Your Loved Ones</h1>
-        <h2>Let the Scheduler Plan for You</h2>
+        <h1>Never Forget to Appreciate Your Loved Ones</h1>
+        <h2>Let the Scheduler Remember for You</h2>
         <div className="calendar-asset"></div>
         <StyledButton buttonStyle="primary" handleClick={handleClick}>
           {setButtonText(props.showEvents)}
