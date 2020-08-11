@@ -29,11 +29,11 @@ const Jumbotron = (props: {
       <div className="jumbotron-content">
         <h1>Simplify Appreciating Your Loved Ones</h1>
         <h2>Let the Scheduler Plan for You</h2>
-        <img className="calendar-asset" src="/images/bae-calendar.png" />
+        <div className="calendar-asset"></div>
+        <StyledButton buttonStyle="primary" handleClick={handleClick}>
+          {setButtonText(props.showEvents)}
+        </StyledButton>
       </div>
-      <StyledButton buttonStyle="primary" handleClick={handleClick}>
-        {setButtonText(props.showEvents)}
-      </StyledButton>
     </div>
   );
 };
