@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import StyledButton from '../buttons';
-import './jumbotron.scss';
+import React, { useState } from "react";
+import BaeModal from "../modal";
+import StyledButton from "../buttons";
+import "./jumbotron.scss";
 
 const SCROLL_DELAY_TIME = 100;
 
 const setButtonText = (isClicked: boolean): string => {
-  return isClicked ? 'Regenerate Events' : 'Generate Events';
+  return isClicked ? "Regenerate Events" : "Generate Events";
 };
 
 const Jumbotron = (props: {
@@ -14,14 +15,14 @@ const Jumbotron = (props: {
   setShowEvents: Function;
   setEvents: Function;
 }) => {
+  const [showModal, setShowModal] = useState(false);
   const handleClick = () => {
-    props.eventsRef.current?.setAttribute('data-show', 'true');
-
-    setTimeout(() => {
-      props.eventsRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, SCROLL_DELAY_TIME);
-
-    props.setShowEvents(true);
+    setShowModal((prev) => !prev);
+    // props.eventsRef.current?.setAttribute("data-show", "true");
+    // setTimeout(() => {
+    //   props.eventsRef.current?.scrollIntoView({ behavior: "smooth" });
+    // }, SCROLL_DELAY_TIME);
+    // props.setShowEvents(true);
   };
 
   return (
@@ -33,6 +34,35 @@ const Jumbotron = (props: {
         <StyledButton buttonStyle="primary" handleClick={handleClick}>
           {setButtonText(props.showEvents)}
         </StyledButton>
+        <BaeModal showModal={showModal} handleModalToggle={handleClick}>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+          <div>hello world</div>
+        </BaeModal>
       </div>
     </div>
   );

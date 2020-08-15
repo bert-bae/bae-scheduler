@@ -1,0 +1,71 @@
+.bae-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 1s linear;
+  opacity: 0;
+  overflow: hidden;
+
+  &[data-display="true"] {
+    height: 100%;
+    opacity: 1;
+  }
+
+  .bae-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+
+  .bae-modal-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .bae-modal-content {
+    overflow-y: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 0 25px #fff;
+    width: 50%;
+    height: 50%;
+    transition: all 0.5s linear;
+    transform: translateY(-15px);
+    opacity: 0;
+
+    &[data-display="true"] {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+    }
+  }
+}

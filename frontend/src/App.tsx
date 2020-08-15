@@ -1,40 +1,40 @@
-import React, { useState, useRef, useEffect } from 'react';
-import NavigationBar from './components/navbar';
-import Jumbotron from './components/jumbotron';
-import EventsContainer from './components/events';
+import React, { useState, useRef, useEffect } from "react";
+import NavigationBar from "./components/navbar";
+import Jumbotron from "./components/jumbotron";
+import EventsContainer from "./components/events";
 
-import { transformArrayToMap } from './utils/data-normalizer';
-import { IMapGeneratedEvent } from './types/events';
+import { transformArrayToMap } from "./utils/data-normalizer";
+import { IMapGeneratedEvent } from "./types/events";
 
 const dummyEventData = [
   {
-    category: 'Appreciation',
-    description: 'Appreciation description goes here',
+    category: "Appreciation",
+    description: "Appreciation description goes here",
     datetime: new Date().toISOString(),
   },
   {
-    category: 'Gift',
-    description: 'Gift description goes here',
+    category: "Gift",
+    description: "Gift description goes here",
     datetime: new Date().toISOString(),
   },
   {
-    category: 'Experience',
-    description: 'Experience description goes here',
+    category: "Experience",
+    description: "Experience description goes here",
     datetime: new Date().toISOString(),
   },
   {
-    category: 'Activity',
-    description: 'Activity description goes here',
+    category: "Activity",
+    description: "Activity description goes here",
     datetime: new Date().toISOString(),
   },
   {
-    category: 'Activity',
-    description: 'Activity description goes here',
+    category: "Activity",
+    description: "Activity description goes here",
     datetime: new Date().toISOString(),
   },
   {
-    category: 'Gift',
-    description: 'Gift description goes here',
+    category: "Gift",
+    description: "Gift description goes here",
     datetime: new Date().toISOString(),
   },
 ];
