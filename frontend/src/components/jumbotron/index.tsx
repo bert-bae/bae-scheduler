@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import BaeModal from "../modal";
-import StyledButton from "../buttons";
-import "./jumbotron.scss";
+import React, { useState } from 'react';
+import BaeModal from '../modal';
+import EventGenerationForm from '../forms/event-generation-form'
+import StyledButton from '../buttons';
+import './jumbotron.scss';
 
 const SCROLL_DELAY_TIME = 100;
 
@@ -35,33 +36,7 @@ const Jumbotron = (props: {
           {setButtonText(props.showEvents)}
         </StyledButton>
         <BaeModal showModal={showModal} handleModalToggle={handleClick}>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
+          <EventGenerationForm />
         </BaeModal>
       </div>
     </div>
