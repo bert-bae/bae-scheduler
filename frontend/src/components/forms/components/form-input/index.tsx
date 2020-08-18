@@ -19,7 +19,7 @@ const BaeInput = (props: {
       placeholder={props.placeholderValue || ''}
       value={props.inputState}
     />
-    {props.label && <span className="bae-input-label">{props.label}</span>}
+    {props.label && <span className="bae-label">{props.label}</span>}
   </div>
 }
 

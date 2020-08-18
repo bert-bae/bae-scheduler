@@ -4,7 +4,7 @@
   position: relative;
   transition: all 0.2s linear;
 
-  .bae-input-label {
+  .bae-label {
     position: absolute;
     left: 15px;
     top: -10px;
@@ -21,7 +21,8 @@
     border-radius: 3px;
     width: 100%;
     height: 30px;
-    padding: 0 5px;
+    padding: 0 10px;
+    font-size: 14px;
 
     &:focus {
       outline: none;
@@ -32,7 +33,7 @@
   &[data-focus='true'] {
     margin-top: 25px;
 
-    .bae-input-label {
+    .bae-label {
       top: -20px;
       left: 0px;
       background-color: transparent;

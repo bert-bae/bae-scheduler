@@ -16,7 +16,7 @@ const Jumbotron = (props: {
   setShowEvents: Function;
   setEvents: Function;
 }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const handleClick = () => {
     setShowModal((prev) => !prev);
     // props.eventsRef.current?.setAttribute("data-show", "true");
