@@ -19,11 +19,15 @@ const sortOptionByPosition = (options: ISelectOption[]): ISelectOption[] => {
   });
 };
 
+const getValueArray = (selectedValues: ISelectOption[]): string[] => {
+  return selectedValues.map((x) => x.value);
+};
+
 const BaeSelect = (props: {
   label?: string;
   showDropdownRows?: number;
   options: string[];
-  onOptionSelect: Function;
+  onOptionChange: Function;
   placeholderValue?: string;
 }) => {
   const [focus, setFocus] = useState(false);
@@ -68,6 +72,10 @@ const BaeSelect = (props: {
       return copySet;
     });
   };
+
+  useEffect(() => {
+    props.onOptionChange(getValueArray(selectValues));
+  }, [selectValues]);
 
   const createSelected = selectValues.map((option) => {
     return (

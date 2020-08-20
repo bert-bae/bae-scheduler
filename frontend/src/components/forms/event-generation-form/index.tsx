@@ -29,7 +29,7 @@ const EventGenerationForm = () => {
         label="Interests"
         showDropdownRows={3}
         options={["Bacon", "Love", "Food", "Juice", "Toys"]}
-        onOptionSelect={(value: string) => console.log(value)}
+        onOptionChange={(value: string) => console.log(value)}
       />
     </div>
   );
