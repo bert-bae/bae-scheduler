@@ -1,7 +1,8 @@
-import { v4 as uuid } from 'uuid';
-import { IMapGeneratedEvent, IGeneratedEvent } from '../types/events';
+import { v4 as uuid } from "uuid";
+import { IMapGeneratedEvent, IGeneratedEvent } from "../types/events";
+import { HashMap } from "../types/generic";
 
-export const transformArrayToMap = (
+export const transformEventArrayToMap = (
   events: IGeneratedEvent[]
 ): IMapGeneratedEvent => {
   const result: IMapGeneratedEvent = {};
@@ -12,6 +13,16 @@ export const transformArrayToMap = (
     if (!result[id]) {
       result[id] = event;
     }
+  });
+
+  return result;
+};
+
+export const arrayToMap = (arr: Array<any>) => {
+  const result: HashMap = {};
+
+  arr.forEach((val, i) => {
+    result[i] = val;
   });
 
   return result;

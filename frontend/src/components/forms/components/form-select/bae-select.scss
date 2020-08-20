@@ -7,31 +7,31 @@
   border: 1px solid #ff7a96;
   border-radius: 3px;
 
-  &[data-focus='true'] {
+  &[data-focus="true"] {
     margin-top: 25px;
     outline: none;
     border: 2px solid #ff7a96;
-    
+
     .bae-label {
       top: -20px;
       left: 0px;
       background-color: transparent;
     }
   }
-  
+
   .bae-label {
     position: absolute;
     left: 15px;
     top: -10px;
     font-size: 14px;
     font-weight: bold;
-    background-color: #FFF;
+    background-color: #fff;
     color: #ff7a96;
     transition: all 0.2s linear;
   }
 
   select {
-    display: none!important;
+    display: none !important;
   }
 
   .selected-options {
@@ -68,14 +68,14 @@
     background-color: rgba(255, 122, 150, 0.5);
     display: none;
     width: 100%;
-    min-height: 30px;
     height: fit-content;
+    min-height: 30px;
     max-height: 200px;
     overflow-y: auto;
     z-index: 100;
 
-    &[data-focus='true'] {
-      display: block
+    &[data-focus="true"] {
+      display: block;
     }
   }
 }
