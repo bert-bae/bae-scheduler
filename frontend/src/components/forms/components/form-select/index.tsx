@@ -1,52 +1,55 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./bae-select.scss";
 
-interface ISelectOptions {
+interface ISelectOption {
   value: string;
   position: number;
 }
 
+const defaultVisibleRows = 5;
+const heightPerRow = 31;
+
+const sortOptionByPosition = (options: ISelectOption[]): ISelectOption[] => {
+  return options.sort((a, b) => {
+    if (a.position > b.position) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+};
+
 const BaeSelect = (props: {
   label?: string;
+  showDropdownRows?: number;
   options: string[];
   onOptionSelect: Function;
   placeholderValue?: string;
 }) => {
   const [focus, setFocus] = useState(false);
-  const [selectValues, setSelectValues] = useState<ISelectOptions[]>([]);
-  const [options, setOptions] = useState<ISelectOptions[]>(
+  const [selectValues, setSelectValues] = useState<ISelectOption[]>([]);
+  const [options, setOptions] = useState<ISelectOption[]>(
     props.options.map((value, i) => {
       return { value, position: i };
     })
   );
-  // const optionRef = useRef<ISelectOptions[]>(
-  // props.options.map((value, i) => {
-  //   return { value, position: i };
-  // });
-  // );
+  const dropdownVisiblityHeight = props.showDropdownRows
+    ? props.showDropdownRows * heightPerRow
+    : defaultVisibleRows * heightPerRow;
 
-  // useEffect(() => {
-  //   window.addEventListener('click', (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
-  //     event.stopPropagation()
-  //     if (event.currentTarget.className !== 'option') {
-  //       setFocus(false)
-  //     }
-  //   })
-  // }, []);
-
-  const onOptionDelete = (e: React.MouseEvent<HTMLDivElement>): void => {
+  const onOptionDelete = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.stopPropagation();
     const value = String(e.currentTarget.getAttribute("data-value"));
     const position = Number(e.currentTarget.getAttribute("data-position"));
 
-    setOptions((prev) => [...prev, { value, position }]);
+    setOptions((prev) => sortOptionByPosition([...prev, { value, position }]));
     setSelectValues((prev) => {
-      const copy = [...prev];
-      copy.splice(
-        copy.findIndex((option) => option.value === value),
+      const copySet = [...prev];
+      copySet.splice(
+        copySet.findIndex((option) => option.value === value),
         1
       );
-      return copy;
+      return copySet;
     });
   };
 
@@ -57,26 +60,26 @@ const BaeSelect = (props: {
 
     setSelectValues((prev) => [...prev, { value, position }]);
     setOptions((prev) => {
-      const copy = [...prev];
-      copy.splice(
-        copy.findIndex((option) => option.value === value),
+      const copySet = [...prev];
+      copySet.splice(
+        copySet.findIndex((option) => option.value === value),
         1
       );
-      return copy;
+      return copySet;
     });
   };
 
   const createSelected = selectValues.map((option) => {
     return (
-      <span
+      <a
         className="selected"
         onClick={onOptionDelete}
         data-value={option.value}
         data-position={option.position}
         key={option.position}
       >
-        {option.value}
-      </span>
+        {option.value} <span className="close-indicator">x</span>
+      </a>
     );
   });
 
@@ -104,13 +107,23 @@ const BaeSelect = (props: {
       {selectValues.length > 0 && (
         <div className="selected-options">{createSelected}</div>
       )}
+
       {props.placeholderValue && selectValues.length === 0 && (
         <p className="disabled option">{props.placeholderValue}</p>
       )}
+
       {props.label && <span className="bae-label">{props.label}</span>}
-      <div className="dropdown-selections" data-focus={focus}>
-        {createOptions}
-      </div>
+      {options.length > 0 && (
+        <div
+          className="dropdown-selections"
+          data-focus={focus}
+          style={{
+            maxHeight: `${dropdownVisiblityHeight}px`,
+          }}
+        >
+          {createOptions}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,16 +1,22 @@
+$primaryColor: #484848;
+$secondaryColor: #585858;
+$hoverColor: #dcdcdc;
+$selectedTextColor: #fff;
+$optionDropdownBackground: #f5f5f5;
+
 .bae-select-container {
   margin: 15px 0;
   min-height: 30px;
   height: fit-content;
   position: relative;
   transition: all 0.2s linear;
-  border: 1px solid #ff7a96;
+  border: 1px solid $primaryColor;
   border-radius: 3px;
 
   &[data-focus="true"] {
     margin-top: 25px;
     outline: none;
-    border: 2px solid #ff7a96;
+    border: 2px solid $primaryColor;
 
     .bae-label {
       top: -20px;
@@ -22,16 +28,39 @@
   .bae-label {
     position: absolute;
     left: 15px;
-    top: -10px;
+    top: -11px;
+    height: 17px;
     font-size: 14px;
     font-weight: bold;
     background-color: #fff;
-    color: #ff7a96;
+    color: $primaryColor;
     transition: all 0.2s linear;
   }
 
   select {
     display: none !important;
+  }
+
+  a.selected {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0 5px;
+    border-radius: 3px;
+    background-color: $secondaryColor;
+    color: $selectedTextColor;
+    font-size: 12px;
+    margin-right: 5px;
+    transition: all 0.1s ease-in;
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    .close-indicator {
+      font-weight: bold;
+    }
   }
 
   .selected-options {
@@ -47,11 +76,12 @@
     height: 100%;
     padding: 6px 10px;
     font-size: 14px;
-    border-bottom: 1px solid #ff7a96;
+    color: $secondaryColor;
+    border-bottom: 1px solid $primaryColor;
     cursor: pointer;
 
     &.active:hover {
-      background-color: #ff7a96;
+      background-color: $hoverColor;
     }
 
     &:last-of-type {
@@ -64,18 +94,36 @@
   }
 
   .dropdown-selections {
-    border-top: 2px solid #ff7a96;
-    background-color: rgba(255, 122, 150, 0.5);
+    outline: 2px solid $primaryColor;
+    background-color: $optionDropdownBackground;
     display: none;
     width: 100%;
     height: fit-content;
     min-height: 30px;
-    max-height: 200px;
     overflow-y: auto;
     z-index: 100;
+    position: absolute;
+    top: 100%;
+    left: 0;
 
     &[data-focus="true"] {
       display: block;
+    }
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
     }
   }
 }
