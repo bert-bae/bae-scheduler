@@ -70,7 +70,7 @@ const BaeMultiSelect = (props: {
 
   return (
     <div
-      className="bae-select-container"
+      className="bae-select-container multiselect"
       data-focus={focus}
       onClick={() => setFocus((prev) => !prev)}
     >

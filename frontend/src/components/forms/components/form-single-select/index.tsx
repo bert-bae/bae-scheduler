@@ -64,7 +64,7 @@ const BaeSingleSelect = (props: {
 
   return (
     <div
-      className="bae-select-container"
+      className="bae-select-container singleselect"
       data-focus={focus}
       onClick={() => setFocus((prev) => !prev)}
     >
