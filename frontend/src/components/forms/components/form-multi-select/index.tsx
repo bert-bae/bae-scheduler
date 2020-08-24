@@ -1,29 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import "./bae-select.scss";
+import React, { useState, useEffect } from "react";
+import { sortOptionByPosition, getValueArray, getDropdownVisibilityHeight, findAndRemoveOption, ISelectOption } from "../utils/select-option-utils"
+import "./bae-multi-select.scss";
 
-interface ISelectOption {
-  value: string;
-  position: number;
-}
-
-const defaultVisibleRows = 5;
-const heightPerRow = 31;
-
-const sortOptionByPosition = (options: ISelectOption[]): ISelectOption[] => {
-  return options.sort((a, b) => {
-    if (a.position > b.position) {
-      return 1;
-    } else {
-      return -1;
-    }
-  });
-};
-
-const getValueArray = (selectedValues: ISelectOption[]): string[] => {
-  return selectedValues.map((x) => x.value);
-};
-
-const BaeSelect = (props: {
+const BaeMultiSelect = (props: {
   label?: string;
   showDropdownRows?: number;
   options: string[];
@@ -37,9 +16,7 @@ const BaeSelect = (props: {
       return { value, position: i };
     })
   );
-  const dropdownVisiblityHeight = props.showDropdownRows
-    ? props.showDropdownRows * heightPerRow
-    : defaultVisibleRows * heightPerRow;
+  const dropdownVisiblityHeight = getDropdownVisibilityHeight(props.showDropdownRows)
 
   const onOptionDelete = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.stopPropagation();
@@ -47,14 +24,7 @@ const BaeSelect = (props: {
     const position = Number(e.currentTarget.getAttribute("data-position"));
 
     setOptions((prev) => sortOptionByPosition([...prev, { value, position }]));
-    setSelectValues((prev) => {
-      const copySet = [...prev];
-      copySet.splice(
-        copySet.findIndex((option) => option.value === value),
-        1
-      );
-      return copySet;
-    });
+    setSelectValues((prev: ISelectOption[]) => findAndRemoveOption(prev, value));
   };
 
   const onOptionSelect = (e: React.MouseEvent<HTMLDivElement>): void => {
@@ -63,14 +33,7 @@ const BaeSelect = (props: {
     const position = Number(e.currentTarget.getAttribute("data-position"));
 
     setSelectValues((prev) => [...prev, { value, position }]);
-    setOptions((prev) => {
-      const copySet = [...prev];
-      copySet.splice(
-        copySet.findIndex((option) => option.value === value),
-        1
-      );
-      return copySet;
-    });
+    setOptions((prev: ISelectOption[]) => findAndRemoveOption(prev, value));
   };
 
   useEffect(() => {
@@ -136,4 +99,4 @@ const BaeSelect = (props: {
   );
 };
 
-export default BaeSelect;
+export default BaeMultiSelect;

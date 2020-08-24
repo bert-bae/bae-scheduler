@@ -1,26 +1,45 @@
-import React, { useState, FormEventHandler } from 'react'
-import './bae-input.scss'
+import React, { useState, FormEventHandler, useEffect } from "react";
+import "./bae-input.scss";
 
 const BaeInput = (props: {
-  onInputHandler: FormEventHandler,
-  label?: string,
-  inputState?: string,
-  inputType?: string,
-  placeholderValue?: string,
+  label?: string;
+  inputState?: string;
+  inputType?: string;
+  value?: string;
+  onValueChange?: Function;
+  placeholderValue?: string;
 }) => {
-  const [focus, setFocus] = useState(false)
+  const [value, setValue] = useState("");
+  const [focus, setFocus] = useState(false);
 
-  return <div className="bae-input-container" data-focus={focus}>
-    <input
-      type={props.inputType || 'text'}
-      onInput={props.onInputHandler}
-      onFocus={() => setFocus(true)}
-      onBlur={() => setFocus(false)}
-      placeholder={props.placeholderValue || ''}
-      value={props.inputState}
-    />
-    {props.label && <span className="bae-label">{props.label}</span>}
-  </div>
-}
+  const onInputValueChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): Promise<void> => {
+    e.stopPropagation();
+    const value = e.currentTarget.value;
+    setValue(value);
+    if (props.onValueChange) {
+      await props.onValueChange(value);
+    }
+  };
 
-export default BaeInput
+  useEffect(() => {
+    setValue(props.value || "");
+  }, []);
+
+  return (
+    <div className="bae-input-container" data-focus={focus}>
+      <input
+        type={props.inputType || "text"}
+        onInput={onInputValueChange}
+        onFocus={() => setFocus(true)}
+        onBlur={() => setFocus(false)}
+        placeholder={props.placeholderValue || ""}
+        value={value}
+      />
+      {props.label && <span className="bae-label">{props.label}</span>}
+    </div>
+  );
+};
+
+export default BaeInput;
