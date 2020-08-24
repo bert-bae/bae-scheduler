@@ -8,7 +8,7 @@ const BaeSingleSelect = (props: {
   label?: string;
   showDropdownRows?: number;
   options: string[];
-  onValueSelect: Function;
+  onValueChange: Function;
   placeholderValue?: string;
 }) => {
   const [focus, setFocus] = useState(false);
@@ -45,7 +45,7 @@ const BaeSingleSelect = (props: {
   };
 
   useEffect(() => {
-    props.onValueSelect(selectValue.value);
+    props.onValueChange(selectValue.value);
   }, [selectValue]);
 
   const createOptions = options.map((option) => {
