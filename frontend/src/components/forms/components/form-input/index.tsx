@@ -1,4 +1,4 @@
-import React, { useState, FormEventHandler, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./bae-input.scss";
 
 const BaeInput = (props: {
@@ -31,7 +31,7 @@ const BaeInput = (props: {
     <div className="bae-input-container" data-focus={focus}>
       <input
         type={props.inputType || "text"}
-        onInput={onInputValueChange}
+        onChange={onInputValueChange}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
         placeholder={props.placeholderValue || ""}

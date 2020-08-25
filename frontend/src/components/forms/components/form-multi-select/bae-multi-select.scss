@@ -102,9 +102,6 @@ $optionDropdownBackground: #f5f5f5;
     min-height: 30px;
     overflow-y: auto;
     z-index: 100;
-    position: absolute;
-    top: 100%;
-    left: 0;
 
     &[data-focus="true"] {
       display: block;
