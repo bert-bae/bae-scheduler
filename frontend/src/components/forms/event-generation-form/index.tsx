@@ -1,12 +1,17 @@
 import React from "react";
-import BaeButton from "../../buttons"
+import BaeButton from "../../buttons";
 import BaeInput from "../components/form-input";
 import BaeMultiSelect from "../components/form-multi-select";
 import BaeSingleSelect from "../components/form-single-select";
-import { relationOptions, interestOptions } from "../../../constants/form-options"
+import {
+  relationOptions,
+  interestOptions,
+} from "../../../constants/form-options";
 import "../generic-form.scss";
 
-const EventGenerationForm = () => {
+const EventGenerationForm = (props: {
+  onFormSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}) => {
   return (
     <div className="bae-form-container">
       <h3>Let's get started!</h3>
@@ -34,7 +39,9 @@ const EventGenerationForm = () => {
           onValueChange={(value: string) => console.log(value)}
         />
         <div className="flex center-ver center-hor">
-          <BaeButton buttonStyle="primary" handleClick={() => console.log('hello')}>Generate!</BaeButton>
+          <BaeButton buttonStyle="primary" handleClick={props.onFormSubmit}>
+            Generate!
+          </BaeButton>
         </div>
       </div>
     </div>

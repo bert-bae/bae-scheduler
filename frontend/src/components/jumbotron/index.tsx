@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import BaeModal from '../modal';
-import EventGenerationForm from '../forms/event-generation-form'
-import BaeButton from '../buttons';
-import './jumbotron.scss';
+import React, { useState } from "react";
+import BaeModal from "../modal";
+import EventGenerationForm from "../forms/event-generation-form";
+import BaeButton from "../buttons";
+import "./jumbotron.scss";
 
 const SCROLL_DELAY_TIME = 100;
 
@@ -19,11 +19,15 @@ const Jumbotron = (props: {
   const [showModal, setShowModal] = useState(true);
   const handleClick = () => {
     setShowModal((prev) => !prev);
-    // props.eventsRef.current?.setAttribute("data-show", "true");
-    // setTimeout(() => {
-    //   props.eventsRef.current?.scrollIntoView({ behavior: "smooth" });
-    // }, SCROLL_DELAY_TIME);
-    // props.setShowEvents(true);
+  };
+
+  const onEventGenerationFormSubmit = () => {
+    setShowModal(false);
+    props.eventsRef.current?.setAttribute("data-show", "true");
+    setTimeout(() => {
+      props.eventsRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, SCROLL_DELAY_TIME);
+    props.setShowEvents(true);
   };
 
   return (
@@ -36,7 +40,7 @@ const Jumbotron = (props: {
           {setButtonText(props.showEvents)}
         </BaeButton>
         <BaeModal showModal={showModal} handleModalToggle={handleClick}>
-          <EventGenerationForm />
+          <EventGenerationForm onFormSubmit={onEventGenerationFormSubmit} />
         </BaeModal>
       </div>
     </div>
