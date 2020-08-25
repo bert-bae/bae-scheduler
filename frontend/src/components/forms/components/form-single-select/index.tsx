@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { sortOptionByPosition, getDropdownVisibilityHeight, findAndRemoveOption, ISelectOption } from "../utils/select-option-utils";
+import React, { useState, useEffect, useRef } from "react";
+import shortId from "shortid";
+import {
+  sortOptionByPosition,
+  getDropdownVisibilityHeight,
+  findAndRemoveOption,
+  handleNonMatchingElementByIdentifier,
+  ISelectOption,
+} from "../utils/select-option-utils";
 import "./bae-single-select.scss";
 
-const defaultValue = { value: '', position: -1 }
+const defaultValue = { value: "", position: -1 };
 
 const BaeSingleSelect = (props: {
   label?: string;
@@ -11,6 +18,7 @@ const BaeSingleSelect = (props: {
   onValueChange: Function;
   placeholderValue?: string;
 }) => {
+  const elementIdentifier = useRef(shortId());
   const [focus, setFocus] = useState(false);
   const [selectValue, setSelctValue] = useState<ISelectOption>(defaultValue);
   const [options, setOptions] = useState<ISelectOption[]>(
@@ -18,7 +26,9 @@ const BaeSingleSelect = (props: {
       return { value, position: i };
     })
   );
-  const dropdownVisiblityHeight = getDropdownVisibilityHeight(props.showDropdownRows)
+  const dropdownVisiblityHeight = getDropdownVisibilityHeight(
+    props.showDropdownRows
+  );
 
   const onOptionDelete = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.stopPropagation();
@@ -35,11 +45,11 @@ const BaeSingleSelect = (props: {
     const position = Number(e.currentTarget.getAttribute("data-position"));
 
     setOptions((prev: ISelectOption[]) => {
-      let result = [...prev]
+      let result = [...prev];
       if (selectValue.value) {
-        result = sortOptionByPosition([...result, selectValue])
+        result = sortOptionByPosition([...result, selectValue]);
       }
-      return findAndRemoveOption(result, value)
+      return findAndRemoveOption(result, value);
     });
     setSelctValue({ value, position });
   };
@@ -48,6 +58,21 @@ const BaeSingleSelect = (props: {
     props.onValueChange(selectValue.value);
   }, [selectValue]);
 
+  useEffect(() => {
+    document.addEventListener("click", (e) =>
+      handleNonMatchingElementByIdentifier(e, elementIdentifier.current, () =>
+        setFocus(false)
+      )
+    );
+    return () => {
+      document.removeEventListener("click", (e) =>
+        handleNonMatchingElementByIdentifier(e, elementIdentifier.current, () =>
+          setFocus(false)
+        )
+      );
+    };
+  }, []);
+
   const createOptions = options.map((option) => {
     return (
       <div
@@ -55,6 +80,7 @@ const BaeSingleSelect = (props: {
         onClick={onOptionSelect}
         data-value={option.value}
         data-position={option.position}
+        data-identifier={elementIdentifier.current}
         key={option.position}
       >
         {option.value}
@@ -66,6 +92,7 @@ const BaeSingleSelect = (props: {
     <div
       className="bae-select-container singleselect"
       data-focus={focus}
+      data-identifier={elementIdentifier.current}
       onClick={() => setFocus((prev) => !prev)}
     >
       <select multiple />
@@ -76,6 +103,7 @@ const BaeSingleSelect = (props: {
             onClick={onOptionDelete}
             data-value={selectValue.value}
             data-position={selectValue.position}
+            data-identifier={elementIdentifier.current}
             key={selectValue.position}
           >
             {selectValue.value} <span className="close-indicator">x</span>
@@ -84,7 +112,12 @@ const BaeSingleSelect = (props: {
       )}
 
       {props.placeholderValue && !selectValue.value && (
-        <p className="disabled option">{props.placeholderValue}</p>
+        <p
+          className="disabled option"
+          data-identifier={elementIdentifier.current}
+        >
+          {props.placeholderValue}
+        </p>
       )}
 
       {props.label && <span className="bae-label">{props.label}</span>}
@@ -92,6 +125,7 @@ const BaeSingleSelect = (props: {
         <div
           className="dropdown-selections"
           data-focus={focus}
+          data-identifier={elementIdentifier.current}
           style={{
             maxHeight: `${dropdownVisiblityHeight}px`,
           }}

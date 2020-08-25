@@ -3,6 +3,7 @@ import BaeButton from "../../buttons"
 import BaeInput from "../components/form-input";
 import BaeMultiSelect from "../components/form-multi-select";
 import BaeSingleSelect from "../components/form-single-select";
+import { relationOptions, interestOptions } from "../../../constants/form-options"
 import "../generic-form.scss";
 
 const EventGenerationForm = () => {
@@ -22,21 +23,14 @@ const EventGenerationForm = () => {
           placeholderValue="Select interests..."
           label="Interests"
           showDropdownRows={3}
-          options={["Bacon", "Love", "Food", "Juice", "Toys"]}
+          options={interestOptions}
           onOptionChange={(value: string) => console.log(value)}
         />
         <BaeSingleSelect
           placeholderValue="Relationship to person..."
           label="Relation"
           showDropdownRows={3}
-          options={[
-            "Friend",
-            "Parent",
-            "Partner",
-            "Sibling",
-            "Other family",
-            "Misc.",
-          ]}
+          options={relationOptions}
           onValueChange={(value: string) => console.log(value)}
         />
         <div className="flex center-ver center-hor">

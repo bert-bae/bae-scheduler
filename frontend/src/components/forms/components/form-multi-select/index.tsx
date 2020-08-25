@@ -1,5 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { sortOptionByPosition, getValueArray, getDropdownVisibilityHeight, findAndRemoveOption, ISelectOption } from "../utils/select-option-utils"
+import React, { useState, useEffect, useRef } from "react";
+import shortId from "shortid";
+import {
+  sortOptionByPosition,
+  getValueArray,
+  getDropdownVisibilityHeight,
+  findAndRemoveOption,
+  handleNonMatchingElementByIdentifier,
+  ISelectOption,
+} from "../utils/select-option-utils";
 import "./bae-multi-select.scss";
 
 const BaeMultiSelect = (props: {
@@ -9,6 +17,7 @@ const BaeMultiSelect = (props: {
   onOptionChange: Function;
   placeholderValue?: string;
 }) => {
+  const elementIdentifier = useRef(shortId());
   const [focus, setFocus] = useState(false);
   const [selectValues, setSelectValues] = useState<ISelectOption[]>([]);
   const [options, setOptions] = useState<ISelectOption[]>(
@@ -16,7 +25,9 @@ const BaeMultiSelect = (props: {
       return { value, position: i };
     })
   );
-  const dropdownVisiblityHeight = getDropdownVisibilityHeight(props.showDropdownRows)
+  const dropdownVisiblityHeight = getDropdownVisibilityHeight(
+    props.showDropdownRows
+  );
 
   const onOptionDelete = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.stopPropagation();
@@ -24,7 +35,9 @@ const BaeMultiSelect = (props: {
     const position = Number(e.currentTarget.getAttribute("data-position"));
 
     setOptions((prev) => sortOptionByPosition([...prev, { value, position }]));
-    setSelectValues((prev: ISelectOption[]) => findAndRemoveOption(prev, value));
+    setSelectValues((prev: ISelectOption[]) =>
+      findAndRemoveOption(prev, value)
+    );
   };
 
   const onOptionSelect = (e: React.MouseEvent<HTMLDivElement>): void => {
@@ -40,6 +53,21 @@ const BaeMultiSelect = (props: {
     props.onOptionChange(getValueArray(selectValues));
   }, [selectValues]);
 
+  useEffect(() => {
+    document.addEventListener("click", (e) =>
+      handleNonMatchingElementByIdentifier(e, elementIdentifier.current, () =>
+        setFocus(false)
+      )
+    );
+    return () => {
+      document.removeEventListener("click", (e) =>
+        handleNonMatchingElementByIdentifier(e, elementIdentifier.current, () =>
+          setFocus(false)
+        )
+      );
+    };
+  }, []);
+
   const createSelected = selectValues.map((option) => {
     return (
       <a
@@ -47,6 +75,7 @@ const BaeMultiSelect = (props: {
         onClick={onOptionDelete}
         data-value={option.value}
         data-position={option.position}
+        data-identifier={elementIdentifier.current}
         key={option.position}
       >
         {option.value} <span className="close-indicator">x</span>
@@ -61,6 +90,7 @@ const BaeMultiSelect = (props: {
         onClick={onOptionSelect}
         data-value={option.value}
         data-position={option.position}
+        data-identifier={elementIdentifier.current}
         key={option.position}
       >
         {option.value}
@@ -72,15 +102,26 @@ const BaeMultiSelect = (props: {
     <div
       className="bae-select-container multiselect"
       data-focus={focus}
+      data-identifier={elementIdentifier.current}
       onClick={() => setFocus((prev) => !prev)}
     >
       <select multiple />
       {selectValues.length > 0 && (
-        <div className="selected-options">{createSelected}</div>
+        <div
+          className="selected-options"
+          data-identifier={elementIdentifier.current}
+        >
+          {createSelected}
+        </div>
       )}
 
       {props.placeholderValue && selectValues.length === 0 && (
-        <p className="disabled option">{props.placeholderValue}</p>
+        <p
+          className="disabled option"
+          data-identifier={elementIdentifier.current}
+        >
+          {props.placeholderValue}
+        </p>
       )}
 
       {props.label && <span className="bae-label">{props.label}</span>}
@@ -88,6 +129,7 @@ const BaeMultiSelect = (props: {
         <div
           className="dropdown-selections"
           data-focus={focus}
+          data-identifier={elementIdentifier.current}
           style={{
             maxHeight: `${dropdownVisiblityHeight}px`,
           }}
