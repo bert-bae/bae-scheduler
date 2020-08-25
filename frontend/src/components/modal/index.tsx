@@ -16,20 +16,23 @@ const BaeModal = (props: {
     }
   });
 
+  const handleModalToggle = async () => {
+    await props.handleModalToggle();
+  }
+
   return (
     <div className="bae-modal" ref={modalRef} data-display={props.showModal}>
       <div className="bae-modal-overlay"></div>
       <div
         className="bae-modal-container"
-        onClick={async (e) => {
-          await props.handleModalToggle();
-        }}
+        onClick={handleModalToggle}
       >
         <div
           className="bae-modal-content"
           data-display={props.showModal}
           onClick={(e) => e.stopPropagation()}
         >
+          <span className="icon modal-close" onClick={handleModalToggle}></span>
           {props.children}
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import './buttons.scss';
 
-const StyledButton = (props: {
+const BaeButton = (props: {
   children: React.ReactNode;
   buttonStyle: string;
   handleClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -17,4 +17,4 @@ const StyledButton = (props: {
   );
 };
 
-export default StyledButton;
+export default BaeButton;

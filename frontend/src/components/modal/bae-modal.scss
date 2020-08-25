@@ -23,7 +23,7 @@
   &[data-display="true"] {
     height: 100%;
   }
-
+  
   .bae-modal-overlay {
     position: absolute;
     top: 0;
@@ -45,18 +45,54 @@
   }
 
   .bae-modal-content {
+    position: relative;
     overflow-y: auto;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 0 25px #fff;
     width: 50%;
-    height: 50%;
+    min-height: 50%;
     opacity: 0;
 
     &[data-display="true"] {
       transform: translateY(0);
       opacity: 1;
       animation: fadeIn 0.25s ease-in;
+    }
+
+    .modal-close {
+      background-image: url('./assets/close-icon.svg');
+      position: absolute;
+      top: 0;
+      right: 0;
+    }  
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .bae-modal {
+    .bae-modal-content {
+      height: 100vh;
+      width: 100vw;
+      padding: 25px;
+    
+      .modal-close {
+        top: 25px;
+        right: 25px;
+      }  
+    }
+  }
+}
+
+@media only screen and (max-width: 568px) {
+  .bae-modal {
+    .bae-modal-content {
+      padding: 15px;
+    
+      .modal-close {
+        top: 15px;
+        right: 15px;
+      }  
     }
   }
 }

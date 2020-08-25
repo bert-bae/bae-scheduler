@@ -1,17 +1,11 @@
-import React, { useState, FormEvent } from "react";
+import React from "react";
+import BaeButton from "../../buttons"
 import BaeInput from "../components/form-input";
-import BaeSelect from "../components/form-select";
+import BaeMultiSelect from "../components/form-multi-select";
+import BaeSingleSelect from "../components/form-single-select";
 import "../generic-form.scss";
 
 const EventGenerationForm = () => {
-  const [name, setName] = useState("");
-
-  const createInputStateSetter = (setFunction: Function) => (
-    e: FormEvent<HTMLInputElement>
-  ) => {
-    setFunction(e.currentTarget.value);
-  };
-
   return (
     <div className="bae-form-container">
       <h3>Let's get started!</h3>
@@ -19,18 +13,36 @@ const EventGenerationForm = () => {
         Tell us more about this special person in your life so we can help
         create meaningful suggestions for you.
       </p>
-      <BaeInput
-        label="Name"
-        inputState={name}
-        onInputHandler={createInputStateSetter(setName)}
-      />
-      <BaeSelect
-        placeholderValue="Select interests..."
-        label="Interests"
-        showDropdownRows={3}
-        options={["Bacon", "Love", "Food", "Juice", "Toys"]}
-        onOptionChange={(value: string) => console.log(value)}
-      />
+      <div className="form-subsection">
+        <BaeInput
+          label="Name"
+          onValueChange={(value: string) => console.log(value)}
+        />
+        <BaeMultiSelect
+          placeholderValue="Select interests..."
+          label="Interests"
+          showDropdownRows={3}
+          options={["Bacon", "Love", "Food", "Juice", "Toys"]}
+          onOptionChange={(value: string) => console.log(value)}
+        />
+        <BaeSingleSelect
+          placeholderValue="Relationship to person..."
+          label="Relation"
+          showDropdownRows={3}
+          options={[
+            "Friend",
+            "Parent",
+            "Partner",
+            "Sibling",
+            "Other family",
+            "Misc.",
+          ]}
+          onValueChange={(value: string) => console.log(value)}
+        />
+        <div className="flex center-ver center-hor">
+          <BaeButton buttonStyle="primary" handleClick={() => console.log('hello')}>Generate!</BaeButton>
+        </div>
+      </div>
     </div>
   );
 };
