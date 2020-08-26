@@ -1,0 +1,50 @@
+$primaryColor: #484848;
+$textColor: #585858;
+
+.bae-input-container {
+  margin: 15px 0;
+  height: 30px;
+  position: relative;
+  transition: all 0.2s linear;
+
+  .bae-label {
+    position: absolute;
+    left: 15px;
+    top: -11px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #fff;
+    color: $primaryColor;
+    transition: all 0.2s linear;
+  }
+
+  input {
+    box-sizing: border-box;
+    border: 1px solid $primaryColor;
+    border-radius: 3px;
+    width: 100%;
+    height: 30px;
+    padding: 0 10px;
+    font-size: 14px;
+    color: $textColor;
+
+    &:focus {
+      outline: none;
+      border: 2px solid $primaryColor;
+    }
+  }
+
+  &[data-focus="true"] {
+    margin-top: 25px;
+
+    .bae-label {
+      top: -20px;
+      left: 0px;
+      background-color: transparent;
+    }
+    input:focus {
+      outline: none;
+      border: 2px solid $primaryColor;
+    }
+  }
+}

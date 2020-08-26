@@ -3,7 +3,7 @@ import NavigationBar from "./components/navbar";
 import Jumbotron from "./components/jumbotron";
 import EventsContainer from "./components/events";
 
-import { transformArrayToMap } from "./utils/data-normalizer";
+import { transformEventArrayToMap } from "./utils/data-normalizer";
 import { IMapGeneratedEvent } from "./types/events";
 
 const dummyEventData = [
@@ -45,7 +45,7 @@ const App = () => {
   const eventsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setEvents(transformArrayToMap(dummyEventData));
+    setEvents(transformEventArrayToMap(dummyEventData));
   }, []);
 
   return (

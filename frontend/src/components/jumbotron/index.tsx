@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import BaeModal from "../modal";
-import StyledButton from "../buttons";
+import EventGenerationForm from "../forms/event-generation-form";
+import BaeButton from "../buttons";
 import "./jumbotron.scss";
 
 const SCROLL_DELAY_TIME = 100;
@@ -15,14 +16,18 @@ const Jumbotron = (props: {
   setShowEvents: Function;
   setEvents: Function;
 }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const handleClick = () => {
     setShowModal((prev) => !prev);
-    // props.eventsRef.current?.setAttribute("data-show", "true");
-    // setTimeout(() => {
-    //   props.eventsRef.current?.scrollIntoView({ behavior: "smooth" });
-    // }, SCROLL_DELAY_TIME);
-    // props.setShowEvents(true);
+  };
+
+  const onEventGenerationFormSubmit = () => {
+    setShowModal(false);
+    props.eventsRef.current?.setAttribute("data-show", "true");
+    setTimeout(() => {
+      props.eventsRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, SCROLL_DELAY_TIME);
+    props.setShowEvents(true);
   };
 
   return (
@@ -31,37 +36,11 @@ const Jumbotron = (props: {
         <h1>Never Forget to Appreciate Your Loved Ones</h1>
         <h2>Let the Scheduler Remember for You</h2>
         <div className="calendar-asset"></div>
-        <StyledButton buttonStyle="primary" handleClick={handleClick}>
+        <BaeButton buttonStyle="primary" handleClick={handleClick}>
           {setButtonText(props.showEvents)}
-        </StyledButton>
+        </BaeButton>
         <BaeModal showModal={showModal} handleModalToggle={handleClick}>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
-          <div>hello world</div>
+          <EventGenerationForm onFormSubmit={onEventGenerationFormSubmit} />
         </BaeModal>
       </div>
     </div>
